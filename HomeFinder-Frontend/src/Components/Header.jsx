@@ -16,32 +16,34 @@ export default function Header() {
           <input
             type="text"
             placeholder="Search..."
-            className="bg-transparent focus:outline-none w-24 sm:w-64"
+            className="bg-transparent placeholder-black focus:outline-none w-24 sm:w-64"
           />
           <FaSearch className="text-black" />
         </form>
 
         <ul className=" flex gap-4">
           <Link to="/">
-            <li className="hidden sm:inline text-slate-100 hover:underline">
+            <li className="hidden sm:inline text-slate-100 font-bold hover:underline">
               Home
             </li>
           </Link>
 
           <Link to="/about">
-            <li className="text-slate-100 hover:underline">About</li>
+            <li className="text-slate-100 font-bold hover:underline">About</li>
           </Link>
 
           <Link to="/SignIn">
-            <li className="text-slate-100 hover:underline">{""}SignIn </li>
+            <li className="text-slate-100 font-bold hover:underline">
+              {""}SignIn{" "}
+            </li>
           </Link>
 
           <Link to="/Map">
-            <li className="text-slate-100 hover:underline">Map</li>
+            <li className="text-slate-100 font-bold hover:underline">Map</li>
           </Link>
 
           <Link to="/MortageCalculator">
-            <li className="text-slate-100 hover:underline">
+            <li className="text-slate-100 font-bold hover:underline">
               Mortage Calculator
             </li>
           </Link>
