@@ -1,15 +1,20 @@
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import logo from "/images/homefind-high-resolution-logo-transparent.png"; // Adjust the path as necessary
 
 export default function Header() {
   return (
     <header className="bg-blue-900 shadow-md">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
         <Link to="/">
-          <h1 className="font-bold text-sm sm:text-xl flex-wrap">
-            <span className="text-slate-100">Home</span>
-            <span className="text-yellow-400">Find</span>
-          </h1>
+          {/* Use the imported high-resolution logo here and apply size styling */}
+          <img
+            src={logo}
+            alt="HomeFind Logo"
+            className="h-5 sm:h-8"
+            flex-wrap
+          />{" "}
+          {/* Adjust the h-5 sm:h-8 as necessary */}
         </Link>
 
         <form className=" bg-slate-100 p-3 rounded-lg flex items-center">
