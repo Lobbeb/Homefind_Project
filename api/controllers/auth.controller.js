@@ -2,6 +2,7 @@ import User from "../models/user.model.js"; // Import user model
 import bcryptjs from "bcryptjs"; // Import bcryptjs for password hashing
 
 export const signup = async (req, res, next) => {
+  // ADD THINGS BELOW FOR SIGNUP RIGHT NOW ONLY USERNAMNE EMAIL AND PASSWORD
   // Signup controller
   const { username, password, email } = req.body; // Get username, password and email from request body
   const hashedPassword = bcryptjs.hashSync(password, 10); // Hash the password

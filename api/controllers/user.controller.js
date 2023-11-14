@@ -1,3 +1,4 @@
 export const test = (req, res) => {
-  res.send("api route are working!");
+  // Test route
+  res.send("api route are working!"); // Send response
 };
