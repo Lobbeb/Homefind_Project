@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// TODO: Add First & last - name to the signup, potential add more stuff <- same in signup.jsc and auth.controller.js
 const userSchema = new mongoose.Schema( // Schema for user
   {
     username: {

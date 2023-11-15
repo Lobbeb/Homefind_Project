@@ -38,6 +38,7 @@ export default function SignUp() {
     }
   };
 
+  // TODO Add First & last - name to the signup, potential add more stuff
   return (
     <div
       className="p-6 max-w-lg mx-auto my-8 rounded-lg shadow"

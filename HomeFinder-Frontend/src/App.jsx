@@ -7,6 +7,7 @@ import Map from "./pages/Map";
 import About from "./pages/about";
 import Header from "./Components/Header";
 import MortageCalculator from "./pages/MortageCalculator";
+import Profile from "./pages/Profile";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/About" element={<About />} />
+        <Route path="/Profile" element={<Profile />} />
         <Route path="/Map" element={<Map />} />
         <Route path="/MortageCalculator" element={<MortageCalculator />} />
       </Routes>
