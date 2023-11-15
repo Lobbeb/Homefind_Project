@@ -4,7 +4,7 @@ import logo from "/images/homefind-high-resolution-logo-transparent.png"; // Adj
 
 export default function Header() {
   return (
-    <header className="bg-blue-900 shadow-md">
+    <header className="bg-blue-900 shadow-md opacity-95">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
         <Link to="/">
           {/* Use the imported high-resolution logo here and apply size styling */}
