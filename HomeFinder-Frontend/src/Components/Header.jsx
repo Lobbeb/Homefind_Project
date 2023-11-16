@@ -11,8 +11,7 @@ export default function Header() {
           <img
             src={logo}
             alt="HomeFind Logo"
-            className="h-5 sm:h-8"
-            flex-wrap
+            className="h-5 sm:h-8 flex-wrap"
           />{" "}
           {/* Adjust the h-5 sm:h-8 as necessary */}
         </Link>
