@@ -30,8 +30,7 @@ export const signin = async (req, res, next) => {
     if (!validUser) return next(errorHandler(404, "user not found")); // If user not found, send error
 
     const validPassword = bcryptjs.compareSync(password, validUser.password); // Compare the passwords <- because we hashed it
-    if (!validPassword)
-      return next(errorHandler(401, "Wrong password or Username")); // If password is invalid, send error
+    if (!validPassword) return next(errorHandler(401, "Wrong password")); // If password is invalid, send error
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET); // Create a token
     const { password: pass, ...rest } = validUser._doc; // Get all the user data except password
     res
