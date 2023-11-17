@@ -1,8 +1,10 @@
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logo from "/images/homefind-high-resolution-logo-transparent.png"; // Adjust the path as necessary
+import { useSelector } from "react-redux";
 
 export default function Header() {
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <header className="bg-blue-900 shadow-md opacity-95">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
@@ -36,12 +38,7 @@ export default function Header() {
             <li className="text-slate-100 font-bold hover:underline">About</li>
           </Link>
 
-          <Link to="/Sign-in">
-            <li className="text-slate-100 font-bold hover:underline">
-              {""}SignIn{" "}
-            </li>
-          </Link>
-
+          {/* TODO: Add these below, extra*/}
           <Link to="/Map">
             <li className="text-slate-100 font-bold hover:underline">Map</li>
           </Link>
@@ -50,6 +47,21 @@ export default function Header() {
             <li className="text-slate-100 font-bold hover:underline">
               Mortage Calculator
             </li>
+          </Link>
+
+          {/* TODO: Move this to the top aka left side of all the bars*/}
+          <Link to="/profile">
+            {currentUser ? (
+              <img
+                className="rounded-full h-7 w-7 object-cover "
+                src={currentUser.avatar}
+                alt="profile"
+              />
+            ) : (
+              <li className="text-slate-100 font-bold hover:underline">
+                SignIn
+              </li>
+            )}
           </Link>
         </ul>
       </div>

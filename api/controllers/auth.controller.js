@@ -35,7 +35,7 @@ export const signin = async (req, res, next) => {
     res
       .cookie("access_token", token, { httpOnly: true })
       .status(200)
-      .json({ rest }); // Send token as cookies and user data as response
+      .json(rest); // Send token as cookies and user data as response
   } catch (error) {
     next(error);
   }
@@ -51,7 +51,7 @@ export const google = async (req, res, next) => {
       res
         .cookie("access_token", token, { httpOnly: true })
         .status(200)
-        .json({ rest }); // Send token as cookies and user data as response
+        .json(rest);
     } else {
       // Create a new user if you dont have google account
       const generatedPassword =
@@ -72,7 +72,7 @@ export const google = async (req, res, next) => {
       res
         .cookie("access_token", token, { httpOnly: true })
         .status(200)
-        .json({ rest }); // Send token as cookies and user data as response
+        .json(rest);
     }
   } catch (error) {
     next(error);
