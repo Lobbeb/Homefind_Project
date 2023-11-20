@@ -11,6 +11,9 @@ import {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
+  deleteUserFailure,
+  deleteUserSuccess,
+  deleteUserStart,
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 
@@ -92,6 +95,36 @@ export default function Profile() {
     }
   };
 
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const response = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        // Handling non-2xx HTTP responses
+        const errorText = await response.text();
+        throw new Error(errorText || "Failed to delete user.");
+      }
+
+      const data = await response.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message || "Failed to delete user."));
+        alert(`Delete failed: ${data.message || "Server error"}`);
+        return;
+      }
+
+      dispatch(deleteUserSuccess());
+      alert("User deleted successfully.");
+      // Redirects to the home page automaticcly thanks to userslice.js
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+      alert(`Delete failed: ${error.message}`);
+    }
+  };
+
+  //Down here is everything that shows for the profile page aka UI
   return (
     <div
       className="p-6 max-w-lg mx-auto my-8 rounded-lg shadow"
@@ -115,20 +148,14 @@ export default function Profile() {
         <p className="self-center">
           {fileUploadError ? (
             <span className="text-red-500">File upload error</span>
-          ) : (
-            <span>
-              {filepercentage > 0 && filepercentage < 100 ? (
-                <span className="text-blue-500">
-                  {"File upload progress: " + filepercentage + "%"}
-                </span>
-              ) : filepercentage === 100 ? (
-                <span className="text-green-500">
-                  File uploaded successfully
-                </span>
-              ) : (
-                ""
-              )}
+          ) : filepercentage > 0 && filepercentage < 100 ? (
+            <span className="text-blue-500">
+              {"File upload progress: " + filepercentage + "%"}
             </span>
+          ) : filepercentage === 100 ? (
+            <span className="text-green-500">File uploaded successfully</span>
+          ) : (
+            ""
           )}
         </p>
         <input
@@ -162,7 +189,12 @@ export default function Profile() {
         </button>
       </form>
       <div className="flex justify-between mt-5">
-        <span className="cursor-pointer hover:underline">delete account</span>
+        <span
+          onClick={handleDeleteUser}
+          className="cursor-pointer hover:underline"
+        >
+          delete account
+        </span>
         <span className="cursor-pointer hover:underline">sign out</span>
       </div>
       <p className="text-red-700 m-5">{error ? error : ""}</p>

@@ -3,6 +3,8 @@ import bcryptjs from "bcryptjs"; // Import bcryptjs for password hashing
 import { errorHandler } from "../utils/error.js"; // Import error handler
 import jwt from "jsonwebtoken"; // Import jsonwebtoken for creating tokens
 
+//TODO: Add First & last - name to the signup, potential add more stuff <- same in signup.js and  user.model.js
+//TODO: Basically go into auth.controller, signup.jsx and user.model to add confirmation of password and other stuff. when signing up.
 // Signup controller
 export const signup = async (req, res, next) => {
   try {
