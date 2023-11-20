@@ -14,6 +14,9 @@ import {
   deleteUserFailure,
   deleteUserSuccess,
   deleteUserStart,
+  signOutUserFailure,
+  signOutUserSuccess,
+  signOutUserStart,
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 
@@ -124,6 +127,40 @@ export default function Profile() {
     }
   };
 
+  //Sign out function
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+
+      const response = await fetch("/api/auth/signout");
+
+      // Check if the response is not OK (i.e., HTTP status code outside of the 2xx range)
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || "Server responded with an error.");
+      }
+
+      const data = await response.json();
+
+      if (data.success === false) {
+        dispatch(signOutUserFailure(data.message || "Failed to sign out."));
+        alert(`Sign out failed: ${data.message || "Server error"}`);
+        return;
+      }
+
+      dispatch(signOutUserSuccess());
+      alert("Signed out successfully.");
+    } catch (error) {
+      // Check if the error object has a message property
+      dispatch(
+        signOutUserFailure(
+          error.message || "Sign out failed due to an unexpected error."
+        )
+      );
+      alert(`Sign out failed: ${error.message || "Unexpected error occurred"}`);
+    }
+  };
+
   //Down here is everything that shows for the profile page aka UI
   return (
     <div
@@ -195,7 +232,12 @@ export default function Profile() {
         >
           delete account
         </span>
-        <span className="cursor-pointer hover:underline">sign out</span>
+        <span
+          onClick={handleSignOut}
+          className="cursor-pointer hover:underline"
+        >
+          sign out
+        </span>
       </div>
       <p className="text-red-700 m-5">{error ? error : ""}</p>
       <p className="text-green-700 m-5">
