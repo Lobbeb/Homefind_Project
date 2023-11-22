@@ -1,6 +1,7 @@
 import bcryptjs from "bcryptjs"; // Import bcryptjs
 import User from "../models/user.model.js"; // Import user model
 import { errorHandler } from "../utils/error.js"; // Import error handler
+import Listing from "../models/listing.model.js";
 
 export const test = (req, res) => {
   // Test route
@@ -56,6 +57,31 @@ export const deleteUser = async (req, res, next) => {
     res.clearCookie("access_token");
     res.status(200).json("User deleted successfully");
   } catch (error) {
+    next(error);
+  }
+};
+
+export const getUserListings = async (req, res, next) => {
+  // Ensure that the user ID from the token matches the user ID in the request parameters
+  if (req.user.id !== req.params.id) {
+    return next(errorHandler(403, "Unauthorized access to listings."));
+  }
+
+  try {
+    // Retrieve the listings that belong to the user
+    const listings = await Listing.find({ userRef: req.params.id });
+
+    // If no listings are found, return a 404 status code
+    if (!listings || listings.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No listings found for this user." });
+    }
+
+    // If listings are found, return them with a 200 status code
+    res.status(200).json(listings);
+  } catch (error) {
+    // If an error occurs, pass it to the error handling middleware
     next(error);
   }
 };
