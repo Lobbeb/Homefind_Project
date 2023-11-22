@@ -74,3 +74,21 @@ export const updateListing = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getListing = async (req, res, next) => {
+  try {
+    const listing = await Listing.findById(req.params.id);
+
+    if (!listing) {
+      // It's good to create a custom error with a specific status code and message
+      const error = new Error("Listing not found!");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    res.status(200).json(listing);
+  } catch (error) {
+    // Pass the error to the next middleware, which could be your error handling middleware
+    next(error);
+  }
+};
