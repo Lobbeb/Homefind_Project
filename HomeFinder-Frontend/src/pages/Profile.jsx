@@ -31,6 +31,8 @@ export default function Profile() {
   const dispatch = useDispatch();
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const [showListingsError, setShowListingsError] = useState(false);
+  const [showListings, setShowListings] = useState(false);
+
   const [userListings, setUserListings] = useState([]);
 
   console.log(formData);
@@ -166,11 +168,17 @@ export default function Profile() {
   };
 
   const handleShowListings = async () => {
+    // If listings are currently shown, hide them and return early
+    if (showListings) {
+      setShowListings(false);
+      setUserListings([]); // Clear the listings if you want to hide them completely
+      return;
+    }
+
     try {
       setShowListingsError(false);
       const response = await fetch(`/api/user/listings/${currentUser._id}`);
 
-      // Check if the response is not OK (i.e., HTTP status code outside of the 2xx range)
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(errorText || "Server responded with an error.");
@@ -183,9 +191,10 @@ export default function Profile() {
       }
 
       setUserListings(data);
+      setShowListings(true); // Show the listings since they are successfully fetched
     } catch (error) {
-      // Check if the error object has a message property
       setShowListingsError(error.message || "An unexpected error occurred.");
+      setShowListings(false); // Ensure we reset to not showing listings on error
     }
   };
 
@@ -323,14 +332,14 @@ export default function Profile() {
           onClick={handleShowListings}
           className="text-white rounded-lg font-semibold uppercase bg-blue-700 p-2"
         >
-          Show Listings
+          {showListings ? "Hide Listings" : "Show Listings"}
         </button>
       </div>
       <p className="text-red-700 mt-5">
         {showListingsError ? "Error showing listings" : ""}
       </p>
 
-      {userListings && userListings.length > 0 && (
+      {showListings && userListings.length > 0 && (
         <div className="flex flex-col gap-4">
           <h1 className="text-center mt-7 text-2xl font-semibold">
             Your Listings
