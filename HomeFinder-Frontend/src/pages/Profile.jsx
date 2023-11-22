@@ -189,6 +189,41 @@ export default function Profile() {
     }
   };
 
+  // Delete listings thingy
+  const handleListingDelete = async (listingId) => {
+    try {
+      const response = await fetch(`/api/listing/delete/${listingId}`, {
+        method: "DELETE",
+      });
+
+      // Check if the response status is not ok (i.e., not in the range of 200-299)
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(
+          errorText || "There was an error processing your request."
+        );
+      }
+
+      const data = await response.json();
+
+      // Assuming that the delete operation returns a success status to confirm deletion
+      if (data.success) {
+        setUserListings((prev) =>
+          prev.filter((listing) => listing._id !== listingId)
+        );
+        alert("Listing deleted successfully."); // Provide user feedback
+      } else {
+        // If success is false or not provided, log the message from the response
+        console.error("Delete failed:", data.message);
+        alert("Failed to delete the listing."); // Provide user feedback
+      }
+    } catch (error) {
+      // Log and alert the error message
+      console.error("Delete failed:", error.message);
+      alert("Failed to delete the listing due to an error."); // Provide user feedback
+    }
+  };
+
   //Down here is everything that shows for the profile page aka UI
   return (
     <div
