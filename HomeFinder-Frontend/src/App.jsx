@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import PrivateRoute from "./Components/PrivateRoute";
 import CreateListing from "./pages/CreateListing";
 import UpdateListing from "./pages/UpdateListing";
+import Listing from "./pages/Listing";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/About" element={<About />} />
+        <Route path="/listing/:listingId" element={<Listing />} />
 
         {/* Encapsulated and made profile private*/}
         <Route element={<PrivateRoute />}>
