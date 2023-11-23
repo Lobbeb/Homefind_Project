@@ -139,6 +139,7 @@ export default function Listing() {
                   </span>
                   {listing.description}
                 </p>
+                {/*TODO: DOING MORE FILTERS ADD THEM HERE*/}
                 <ul className="text-blue-900 font-semibold text-sm flex flex-wrap items-center gap-2 sm:gap-6 transformed-text5">
                   <li className="flex items-center gap-1 whitespace-nowrap ">
                     <FaBed className="text-lg" />

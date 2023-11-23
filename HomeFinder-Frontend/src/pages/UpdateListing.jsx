@@ -15,6 +15,7 @@ export default function CreateListing() {
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
   //Adding files to filter & stuff has to be added here
+  //TODO: ADD FILTERS HERE TOO
   const [formData, setFormData] = useState({
     imageUrls: [],
     name: "",
@@ -142,6 +143,7 @@ export default function CreateListing() {
     }));
   };
   //Handlechange for our checkboxes, add stuff here if you add more checkboxes.
+  //TODO: LOOK AT THIS WHEN ADDING MORE FILTERS
   const handleChange = (e) => {
     const { id, type, value, checked } = e.target;
 
@@ -225,6 +227,7 @@ export default function CreateListing() {
   };
 
   // Frontend stuff so you see
+  //TODO: SAME AS LISTING BUT ADD FILTERS HERE TOO IF YOU ADD MORE SO YOU CAN UPDATE THEM TOO
   return (
     <main
       className="p-6 max-w-2xl mx-auto my-8 rounded-lg shadow"

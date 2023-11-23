@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+//TODO: ADD MORE FILTERS HERE
 const listingSchema = new mongoose.Schema(
   {
     name: {

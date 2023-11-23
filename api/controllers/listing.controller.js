@@ -92,3 +92,49 @@ export const getListing = async (req, res, next) => {
     next(error);
   }
 };
+
+//TODO WHEN ADDING MORE FILTERS YOU HAVE TO ADD THEM HERE (COPY PASTE SAME FUNCTIONALLITY FOR)
+export const getListings = async (req, res, next) => {
+  try {
+    const {
+      limit = 9,
+      startIndex = 0,
+      offer = "false",
+      furnished = "false",
+      parking = "false",
+      type = "all",
+      searchTerm = "",
+      sort = "createdAt",
+      order = "desc",
+    } = req.query;
+
+    // Convert query params to expected types and defaults
+    const queryLimit = parseInt(limit);
+    const queryStartIndex = parseInt(startIndex);
+    const querySortOrder = order === "desc" ? -1 : 1; // We Assume only 'desc' or 'asc' are valid (add more)
+
+    // Create filter object based on query parameters
+    const filters = {
+      name: { $regex: searchTerm, $options: "i" },
+      offer: offer !== "false" ? { $in: [true, false] } : false,
+      furnished: furnished !== "false" ? { $in: [true, false] } : false,
+      parking: parking !== "false" ? { $in: [true, false] } : false,
+      type: type !== "all" ? type : { $in: ["sale", "rent"] },
+    };
+
+    // Clean up undefined filters to avoid filtering on them
+    Object.keys(filters).forEach(
+      (key) => filters[key] === undefined && delete filters[key]
+    );
+
+    // Fetch listings with filters and sorting
+    const listings = await Listing.find(filters)
+      .sort({ [sort]: querySortOrder })
+      .limit(queryLimit)
+      .skip(queryStartIndex);
+
+    res.status(200).json(listings);
+  } catch (error) {
+    next(error);
+  }
+};
