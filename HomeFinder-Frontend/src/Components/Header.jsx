@@ -1,10 +1,45 @@
 import { FaSearch } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "/images/homefind-high-resolution-logo-transparent.png"; // Adjust the path as necessary
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 export default function Header() {
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+
   const { currentUser } = useSelector((state) => state.user);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Check if there's an existing query string and create an object from it
+    const existingParams = new URLSearchParams(window.location.search);
+
+    // Set 'searchTerm' to the current searchTerm state
+    existingParams.set("searchTerm", searchTerm);
+
+    // Stringify the parameters to append to the navigation path
+    const queryString = existingParams.toString();
+
+    // Navigate to the search page with the query string
+    navigate(`/search?${queryString}`);
+  };
+
+  useEffect(() => {
+    // Create a function to encapsulate the logic for updating the searchTerm
+    const updateSearchTermFromURL = () => {
+      const queryParams = new URLSearchParams(location.search);
+      const searchTermFromURL = queryParams.get("searchTerm");
+      if (searchTermFromURL) {
+        setSearchTerm(searchTermFromURL);
+      }
+    };
+
+    // Call the function within the useEffect
+    updateSearchTermFromURL();
+  }, [location.search]); // Only re-run the effect if location.search changes
+
   return (
     <header className="bg-blue-900 shadow-md opacity-95">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
@@ -18,13 +53,20 @@ export default function Header() {
           {/* Adjust the h-5 sm:h-8 as necessary */}
         </Link>
 
-        <form className=" bg-slate-100 p-3 rounded-lg flex items-center">
+        <form
+          onSubmit={handleSubmit}
+          className=" bg-slate-100 p-3 rounded-lg flex items-center"
+        >
           <input
             type="text"
             placeholder="Search..."
             className="bg-transparent placeholder-black focus:outline-none w-24 sm:w-64"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <FaSearch className="text-black" />
+          <button>
+            <FaSearch className="text-black cursor-pointer" />
+          </button>
         </form>
 
         <ul className=" flex gap-4">
