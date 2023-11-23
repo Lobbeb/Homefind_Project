@@ -109,7 +109,7 @@ export default function Listing() {
             </p>
           )}
           {/*TODO: Gotta decide if we want it to be on the left or we move all info more into the middle leaving it as it is for*/}
-          <div className="bg-gray-300 flex-grow flex  opacity-95">
+          <div className="bg-gray-300 flex-grow flex  bg-opacity-90">
             <div className="container mx-auto p-24  ">
               <div>
                 <p className="text-2xl font-semibold transformed-text1">
