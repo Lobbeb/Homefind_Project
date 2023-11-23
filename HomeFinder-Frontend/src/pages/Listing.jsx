@@ -2,17 +2,18 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
+import { useSelector } from "react-redux";
 import { Navigation } from "swiper/modules";
 import "swiper/css/bundle";
 import {
   FaBath,
   FaBed,
   FaChair,
-  FaMapMarkedAlt,
   FaMapMarkerAlt,
   FaParking,
   FaShare,
 } from "react-icons/fa";
+import Contact from "../Components/Contact";
 
 export default function Listing() {
   SwiperCore.use([Navigation]);
@@ -20,6 +21,8 @@ export default function Listing() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [contact, setContact] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
 
   const params = useParams();
 
@@ -106,7 +109,7 @@ export default function Listing() {
             </p>
           )}
           {/*TODO: Gotta decide if we want it to be on the left or we move all info more into the middle leaving it as it is for*/}
-          <div className="bg-gray-300 flex-grow flex  opacity-90">
+          <div className="bg-gray-300 flex-grow flex  opacity-95">
             <div className="container mx-auto p-24  ">
               <div>
                 <p className="text-2xl font-semibold transformed-text1">
@@ -158,6 +161,21 @@ export default function Listing() {
                     {listing.furnished ? "Furnished" : "Unfurnished"}
                   </li>
                 </ul>
+                {currentUser &&
+                  listing.userRef !== currentUser._id &&
+                  !contact && (
+                    <div className="flex justify-center mt-4 ">
+                      {" "}
+                      {/* This will center the button */}
+                      <button
+                        onClick={() => setContact(true)}
+                        className="bg-blue-700 text-white font-semibold rounded-lg uppercase hover:opacity-95 p-3"
+                      >
+                        Contact Owner
+                      </button>
+                    </div>
+                  )}
+                {contact && <Contact listing={listing} />}
               </div>
             </div>
           </div>
