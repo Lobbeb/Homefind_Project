@@ -3,5 +3,22 @@
 @tailwind utilities;
 
 body {
-  background-image: url("./images/Homefind_background.jpg");
+  background-image: url("/images/Homefind_background.jpg"); /* Note the leading slash */
+}
+
+.transformed-text1 {
+  transform: translateY(-80px); /* Move up by 10px */
+}
+
+.transformed-text2 {
+  transform: translateY(-95px); /* Move up by 10px */
+}
+.transformed-text3 {
+  transform: translateY(-90px); /* Move up by 10px */
+}
+.transformed-text4 {
+  transform: translateY(-80px); /* Move up by 10px */
+}
+.transformed-text5 {
+  transform: translateY(-75px); /* Move up by 10px */
 }

@@ -309,13 +309,13 @@ export default function Profile() {
       <div className="flex justify-between mt-5">
         <span
           onClick={handleDeleteUser}
-          className="cursor-pointer hover:underline"
+          className="cursor-pointer hover:underline font-semibold text-red-600 uppercase"
         >
-          delete account
+          Delete account
         </span>
         <span
           onClick={handleSignOut}
-          className="cursor-pointer hover:underline"
+          className="cursor-pointer hover:underline text-blue-700 font-semibold uppercase"
         >
           sign out
         </span>
@@ -330,7 +330,7 @@ export default function Profile() {
         {/* This will center the button horizontally */}
         <button
           onClick={handleShowListings}
-          className="text-white rounded-lg font-semibold uppercase bg-blue-700 p-2"
+          className="text-white rounded-lg font-semibold uppercase bg-blue-700 p-2 hover:opacity-80"
         >
           {showListings ? "Hide Listings" : "Show Listings"}
         </button>
@@ -366,12 +366,14 @@ export default function Profile() {
               <div className="flex flex-col item-center">
                 <button
                   onClick={() => handleListingDelete(listing._id)}
-                  className="text-red-700 uppercase"
+                  className="text-red-700 uppercase hover:underline"
                 >
                   Delete
                 </button>
                 <Link to={`/update-listing/${listing._id}`}>
-                  <button className="text-green-700 uppercase">Edit</button>
+                  <button className="text-green-700 uppercase hover:underline">
+                    Edit
+                  </button>
                 </Link>
               </div>
             </div>

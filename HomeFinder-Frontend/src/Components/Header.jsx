@@ -44,7 +44,7 @@ export default function Header() {
           </Link>
 
           <Link to="/MortageCalculator">
-            <li className="text-slate-100 font-bold hover:underline">
+            <li className="hidden sm:inline text-slate-100 font-bold hover:underline">
               Mortage Calculator
             </li>
           </Link>
