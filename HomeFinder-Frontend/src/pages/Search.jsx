@@ -112,6 +112,29 @@ export default function Search() {
     fetchListings();
   }, [location.search]);
 
+  const onShowMoreClick = async () => {
+    try {
+      const startIndex = listings.length;
+      const urlParams = new URLSearchParams(location.search);
+      urlParams.set("startIndex", startIndex);
+
+      const response = await fetch(`/api/listing/get?${urlParams}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch more listings");
+      }
+
+      const newData = await response.json();
+      setListings((currentListings) => [...currentListings, ...newData]);
+
+      if (newData.length < 9) {
+        setShowMore(false);
+      }
+    } catch (error) {
+      console.error("Error fetching more listings:", error);
+      // Optionally, handle the error in the UI as well
+    }
+  };
+
   return (
     <div className="bg-gray-200 bg-opacity-70">
       <div className="flex flex-col md:flex-row text-black">
@@ -243,6 +266,14 @@ export default function Search() {
                 <ItemListing key={listing._id} listing={listing} />
               ))}
           </div>
+          {showMore && (
+            <button
+              onClick={onShowMoreClick}
+              className="text-blue-700 font-semibold hover:underline p-7 text-center w-full"
+            >
+              Show more
+            </button>
+          )}
         </div>
       </div>
     </div>
