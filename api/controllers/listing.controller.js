@@ -96,45 +96,40 @@ export const getListing = async (req, res, next) => {
 //TODO WHEN ADDING MORE FILTERS YOU HAVE TO ADD THEM HERE (COPY PASTE SAME FUNCTIONALLITY FOR)
 export const getListings = async (req, res, next) => {
   try {
-    const {
-      limit = 9,
-      startIndex = 0,
-      offer = "false",
-      furnished = "false",
-      parking = "false",
-      type = "all",
-      searchTerm = "",
-      sort = "createdAt",
-      order = "desc",
-    } = req.query;
+    const limit = parseInt(req.query.limit) || 9;
+    const startIndex = parseInt(req.query.startIndex) || 0;
+    const searchTerm = req.query.searchTerm || "";
+    const sort = req.query.sort || "createdAt";
+    const order = req.query.order === "asc" ? "asc" : "desc"; // Default to 'desc' if not 'asc'
 
-    // Convert query params to expected types and defaults
-    const queryLimit = parseInt(limit);
-    const queryStartIndex = parseInt(startIndex);
-    const querySortOrder = order === "desc" ? -1 : 1; // We Assume only 'desc' or 'asc' are valid (add more)
-
-    // Create filter object based on query parameters
+    //TODO: enhance this even more
     const filters = {
-      name: { $regex: searchTerm, $options: "i" },
-      offer: offer !== "false" ? { $in: [true, false] } : false,
-      furnished: furnished !== "false" ? { $in: [true, false] } : false,
-      parking: parking !== "false" ? { $in: [true, false] } : false,
-      type: type !== "all" ? type : { $in: ["sale", "rent"] },
+      ...(req.query.offer === "true" && { offer: true }),
+      ...(req.query.furnished === "true" && { furnished: true }),
+      ...(req.query.parking === "true" && { parking: true }),
+      ...(req.query.type === "sale" || req.query.type === "rent"
+        ? { type: req.query.type }
+        : { type: { $in: ["sale", "rent"] } }),
+      ...(searchTerm && { name: { $regex: searchTerm, $options: "i" } }),
     };
 
-    // Clean up undefined filters to avoid filtering on them
-    Object.keys(filters).forEach(
-      (key) => filters[key] === undefined && delete filters[key]
-    );
-
-    // Fetch listings with filters and sorting
     const listings = await Listing.find(filters)
-      .sort({ [sort]: querySortOrder })
-      .limit(queryLimit)
-      .skip(queryStartIndex);
-
-    res.status(200).json(listings);
+      .sort({ [sort]: order })
+      .limit(limit)
+      .skip(startIndex);
+    return res.status(200).json(listings);
   } catch (error) {
-    next(error);
+    console.error("Error in getListings:", error); // Log the error for debugging
+
+    // Check if it's a user-induced error or a server error
+    if (error instanceof SomeClientError) {
+      // Replace SomeClientError with actual client error type
+      return res
+        .status(400)
+        .json({ message: "Bad Request: [specific error message]" });
+    } else {
+      // For server-side errors, consider logging additional details if needed
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
   }
 };

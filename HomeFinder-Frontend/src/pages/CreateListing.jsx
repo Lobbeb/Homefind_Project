@@ -160,6 +160,11 @@ export default function CreateListing() {
     //TODO: Make it use a default image
     if (formData.imageUrls.length < 1) {
       formData.imageUrls = ["/images/pepehouse_default.jpg"];
+    } else if (formData.imageUrls.length > 6) {
+      // Check if the imageUrls array exceeds the limit
+      setLoading(false);
+      setError("Cannot upload more than 6 images");
+      return;
     }
 
     if (+formData.regularPrice < +formData.discountPrice) {

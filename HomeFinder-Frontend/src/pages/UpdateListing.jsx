@@ -190,8 +190,11 @@ export default function CreateListing() {
 
     // Validate input before sending
     if (formData.imageUrls.length < 1) {
+      formData.imageUrls = ["/images/pepehouse_default.jpg"];
+    } else if (formData.imageUrls.length > 6) {
+      // Check if the imageUrls array exceeds the limit
       setLoading(false);
-      setError("You must upload at least one image");
+      setError("Cannot upload more than 6 images");
       return;
     }
 
