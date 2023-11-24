@@ -22,3 +22,7 @@ body {
 .transformed-text5 {
   transform: translateY(-75px); /* Move up by 10px */
 }
+
+.red-text {
+  color: red;
+}

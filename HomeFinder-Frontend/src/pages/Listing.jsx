@@ -92,7 +92,7 @@ export default function Listing() {
             ))}
           </Swiper>
 
-          <div className="fixed top-[13%] right-[3%] z-10 border rounded-full border-black w-12 h-12 flex justify-center items-center bg-blue-700 cursor-pointer hover:opacity-80">
+          <div className="fixed top-[13%] right-[3%] z-10 border rounded-full border-blue-700 w-12 h-12 flex justify-center items-center text-white bg-blue-700 cursor-pointer hover:opacity-80">
             <FaShare
               onClick={() => {
                 navigator.clipboard.writeText(window.location.href);
@@ -109,27 +109,36 @@ export default function Listing() {
             </p>
           )}
           {/*TODO: Gotta decide if we want it to be on the left or we move all info more into the middle leaving it as it is for*/}
-          <div className="bg-gray-300 flex-grow flex  bg-opacity-90">
-            <div className="container mx-auto p-24  ">
+          <div className="bg-gray-300 flex-grow flex bg-opacity-90">
+            <div className="container mx-auto p-24">
               <div>
                 <p className="text-2xl font-semibold transformed-text1">
-                  {listing.name} - Euro{" "}
-                  {listing.offer
-                    ? listing.discountPrice.toLocaleString("en-Europe")
-                    : listing.regularPrice.toLocaleString("en-Europe")}
-                  {listing.type === "rent" && " / month"}
+                  {listing.name} -{" "}
+                  <span
+                    className={`${
+                      listing.offer ? "text-red-500" : "text-black"
+                    }`}
+                  >
+                    €{" "}
+                    {listing.offer
+                      ? (
+                          listing.regularPrice - listing.discountPrice
+                        ).toLocaleString("en-Europe")
+                      : listing.regularPrice.toLocaleString("en-Europe")}
+                    {listing.type === "rent" && " / month"}
+                  </span>
                 </p>
-                <p className="flex items-center mt-6 gap-2 text-black  text-sm transformed-text2 font-semibold">
-                  <FaMapMarkerAlt className="text-blue-700 " />
+                <p className="flex items-center mt-6 gap-2 text-black text-sm transformed-text2 font-semibold">
+                  <FaMapMarkerAlt className="text-blue-700" />
                   {listing.address}
                 </p>
-                <div className="flex gap-4 transformed-text  ">
-                  <p className="bg-blue-700 w-full max-w-[200px] text-white text-center p-1 rounded-md transformed-text3 ">
+                <div className="flex gap-4 transformed-text">
+                  <p className="bg-blue-700 w-full max-w-[200px] text-white text-center p-1 rounded-md transformed-text3">
                     {listing.type === "rent" ? "For Rent" : "For Sale"}
                   </p>
                   {listing.offer && (
                     <p className="bg-green-700 w-full max-w-[200px] text-white text-center p-1 rounded-md transformed-text3">
-                      {+listing.regularPrice - +listing.discountPrice} Euro OFF
+                      {listing.discountPrice.toLocaleString("en-Europe")} € Off
                     </p>
                   )}
                 </div>

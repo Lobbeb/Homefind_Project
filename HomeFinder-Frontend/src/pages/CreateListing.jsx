@@ -157,10 +157,9 @@ export default function CreateListing() {
     setError(false);
 
     // Validate input before sending
+    //TODO: Make it use a default image
     if (formData.imageUrls.length < 1) {
-      setLoading(false);
-      setError("You must upload at least one image");
-      return;
+      formData.imageUrls = ["/images/pepehouse_default.jpg"];
     }
 
     if (+formData.regularPrice < +formData.discountPrice) {
@@ -302,7 +301,7 @@ export default function CreateListing() {
                 value={formData.bedrooms}
               />
               <label htmlFor="bedrooms" className="mt-2">
-                Beds
+                Bedrooms
               </label>
             </div>
 
@@ -318,7 +317,7 @@ export default function CreateListing() {
                 value={formData.bathrooms}
               />
               <label htmlFor="bathrooms" className="mt-2">
-                Baths
+                Bathrooms
               </label>
             </div>
 
