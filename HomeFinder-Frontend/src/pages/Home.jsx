@@ -89,10 +89,10 @@ export default function Home() {
           style={{ maxWidth: "50%" }}
         >
           <h1 className="text-blue-700 font-bold text-3xl lg:text-6xl">
-            Find your <span className="text-blue-500">dream</span>
+            Find your <span className="text-blue-400">dream</span>
             <br /> home!
           </h1>
-          <div className="text-blue-400">
+          <div className="text-blue-700 font-semibold">
             Homefind - The convinient living for your life
             <br />
             Wide range of personlized apartments & houses
@@ -108,7 +108,7 @@ export default function Home() {
         </div>
       </div>
       {/* Swiper middle */}
-      <div className="h-[550px] flex flex-col md:flex-row gap-5 items-center justify-center bg-blue-900 bg-opacity-80 md-15">
+      <div className="h-[550px] flex flex-wrap md:flex-row gap-5 items-center justify-center bg-blue-900 bg-opacity-80 md-15">
         <div className="flex flex-col gap-3">
           <h1 className="text-white text-[50px] font-semibold">
             Our latest postings<span className="text-">.</span>
@@ -169,7 +169,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Can delete this below and add an about page or something */}
+      {/* TODO: Can delete this below and add an about page or redo/redesign it, its a temporary fix for now*/}
       {/* listing results for offer, sale and rent */}
       <div
         className="bg-gray-200 
@@ -236,6 +236,69 @@ export default function Home() {
               </div>
             </div>
           )}
+        </div>
+      </div>
+      {/* Bottom of the page */}
+      <div className="h-[350px] flex flex-col md:flex-row gap-5 items-center justify-around bg-blue-900 md:px-15 opacity-90">
+        {/* Contact Information */}
+        <div className="text-white text-center flex flex-col justify-between p-4">
+          <h3 className="text-xl font-semibold mb-2">Contact Us</h3>
+          <p>Street: Placeholder</p>
+          <p>City, Placeholder</p>
+          <p>Phone: Placeholder</p>
+          <p>Email: Placeholder</p>
+        </div>
+
+        {/* Social Media Links */}
+        <div className="text-white text-center flex flex-col justify-between p-4">
+          <h3 className="text-xl font-semibold mb-2">Follow Us</h3>
+          <div className="flex justify-center gap-6">
+            <a
+              href="https://www.instagram.com/pepethe_frog/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/images/instagramicon1.png"
+                alt="Instagram"
+                className="w-8 h-8"
+              />
+            </a>
+            <a
+              href="https://twitter.com/elonmusk?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/images/Twittericon1.png"
+                alt="Twitter"
+                className="w-8 h-8"
+              />
+            </a>
+            <a
+              href="https://www.facebook.com/KaibigangOsoPH/videos/1027901588319269"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/images/facebookicon.png"
+                alt="Facebook"
+                className="w-8 h-8"
+              />
+            </a>
+          </div>
+        </div>
+
+        {/* Quick Links */}
+        <div className="text-white text-center flex flex-start p-4">
+          <a
+            href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <h3 className="text-xl font-semibold mb-2">Quick Links</h3>
+          </a>
+          {/* Add quick links or navigation items here */}
         </div>
       </div>
     </div>
