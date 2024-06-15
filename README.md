@@ -15,7 +15,7 @@ to be announced
 
 | Name                 | Department                | E-mail                         | Role                  |
 |----------------------|---------------------------|--------------------------------|------------------------|
-| William Olsson       | Dept. of Information systems | Lobbeolsson@gmail.com        |Backend Developer<br>AI Developer|
+| William Olsson       | Dept. of Information systems | Lobbeolsson@gmail.com        |TeamLead <br> Backend Developer<br>AI Developer|
 | Nina Lauria          | Dept. of Information systems | ninalauria01@gmail.com       |Frontend Developer<br>Document |
 | Jeong JinYeong       | Dept. of Information systems | tttjjjyyy1234@daum.net        |Backend Developer<br>API |
 | Enkhjin Puntsagnorov | Dept. of Information systems | enhjinnsaa48@gmail.com       | Frontend Developer<br>Document|
